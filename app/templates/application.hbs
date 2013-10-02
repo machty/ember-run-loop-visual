@@ -1,0 +1,11 @@
+
+
+{{textarea value=code}}
+
+<button {{action 'runCode'}}>Run Code</button>
+
+<div id="queues" class="cf">
+  {{#each}}
+    {{run-loop-queue name=this}}
+  {{/each}}
+</div>

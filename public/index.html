@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ember Interactive Run Loop</title>
+  <link rel="stylesheet" href="assets/app.css">
+  <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+
+  <meta name="viewport" content="width=600, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
+
+  <!-- build:js(.) assets/vendor.min.js -->
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/handlebars/handlebars.js"></script>
+  <script src="/vendor/ember/index.js"></script>
+  <script src="/vendor/loader.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js(tmp/public) assets/app.min.js -->
+  <script src="/assets/app.js"></script>
+  <script src="/assets/templates.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+  <script>
+    window.App = requireModule('appkit/app');
+  </script>
+</body>
+</html>
