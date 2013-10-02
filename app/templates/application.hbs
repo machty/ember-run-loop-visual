@@ -4,8 +4,12 @@
 
 <button {{action 'runCode'}}>Run Code</button>
 
+<h2>Run Loop Queues:</h2>
+
 <div id="queues" class="cf">
   {{#each}}
     {{run-loop-queue name=this}}
   {{/each}}
+
+  {{current-queue-blip queueIndex=currentQueueIndex id="current-queue-blip"}}
 </div>

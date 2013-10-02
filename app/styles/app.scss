@@ -70,9 +70,37 @@ html {
     *zoom: 1;
 }
 
-#queues > .ember-view {
-  float: left;
+#queues {
+  position: absolute;
   padding: 10px;
+}
+
+.run-loop-queue {
+  float: left;
+  padding: 20px 10px;
   border: 1px solid black;
   width: 150px;
+  margin: 0 5px;
+  background: white;
+  z-index: 5;
+  position: relative;
 }
+
+#current-queue-blip {
+  background: blue;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  width: 150px;
+  height: 30px;
+  left: 0;
+  -webkit-transition: left 0.4s;
+  -moz-transition: left 0.4s;
+  transition: left 0.4s;
+  margin-top: -6px;
+
+  background: red;
+}
+
+
+
