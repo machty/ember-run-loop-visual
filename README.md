@@ -8,7 +8,8 @@ See it live
 Clone this repo, `cd` in the new directory, then:
 
     npm install
- 
+    bower install
+
 To run a local server:
 
     grunt server
