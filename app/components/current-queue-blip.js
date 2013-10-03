@@ -7,7 +7,6 @@ var CurrentQueueBlip = Ember.Component.extend({
 
   style: function() {
     var leftOffset = this.get('queueIndex') * QUEUE_WIDTH;
-    debugger;
     return "left: " + leftOffset + "px";
   }.property('queueIndex')
 });

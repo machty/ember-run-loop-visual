@@ -1,4 +1,3 @@
-
 var DEFAULT_CODE = "Ember.run(function() { alert('omg') });";
 
 var ApplicationController = Ember.ArrayController.extend({

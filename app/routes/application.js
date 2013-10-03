@@ -9,8 +9,6 @@ var ApplicationRoute = Ember.Route.extend({
       currentQueueName: queues[0],
       model: queues
     });
-
-    Ember.run.later(controller, 'set', 'currentQueueName', 'actions', 1000);
   },
   actions: {
     runCode: function() {
