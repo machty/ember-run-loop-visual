@@ -1,13 +1,23 @@
-var DEFAULT_CODE = "Ember.run(function() { alert('omg') });";
+var DEFAULT_CODE = [
+  "function foo() {",
+  "  Ember.run.once(function() { console.log('FOO!'); });",
+  "}",
+  "",
+  "function bar() {",
+  "  Ember.run.schedule('afterRender', function() { console.log('BAR!'); });",
+  "}",
+  "",
+  "Ember.run(function() {",
+  "  Ember.run.schedule('render', function() {",
+  "    Ember.run.scheduleOnce('sync', foo);",
+  "    Ember.run.scheduleOnce('actions', bar);",
+  "  });",
+  "});"
+].join("\n");
 
-var ApplicationController = Ember.ArrayController.extend({
+var ApplicationController = Ember.ObjectController.extend({
   code: DEFAULT_CODE,
-
-  currentQueueName: null,
-
-  currentQueueIndex: function() {
-    return this.get('model').indexOf(this.get('currentQueueName'));
-  }.property('currentQueueName')
+  logs: []
 });
 
 export default ApplicationController;

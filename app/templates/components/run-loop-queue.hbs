@@ -1,1 +1,9 @@
-<p>{{name}}!</p>
+<h2>{{queue.name}}</h2>
+
+<ul class="actions">
+  {{#each queue.actions}}
+  <li class="action">
+    <pre>{{fn}}</pre>
+  </li>
+  {{/each}}
+</ul>

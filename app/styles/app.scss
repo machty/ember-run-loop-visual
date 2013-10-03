@@ -71,13 +71,11 @@ html {
 }
 
 #queues {
-  position: absolute;
-  padding: 10px;
+  margin: 20px 0;
 }
 
 .run-loop-queue {
   float: left;
-  padding: 20px 10px;
   border: 1px solid black;
   width: 150px;
   margin: 0 5px;
@@ -91,7 +89,7 @@ html {
   border-radius: 4px;
   position: absolute;
   z-index: 1;
-  width: 150px;
+  width: 161px;
   height: 30px;
   left: 0;
   -webkit-transition: left 0.4s;
@@ -102,5 +100,27 @@ html {
   background: red;
 }
 
+textarea#code {
+  display: block;
+  width: 600px;
+  height: 200px;
+}
 
+.actions {
+}
+
+.action {
+  margin: 3px;
+  border: 1px solid blue;
+  padding: 3px;
+  font-size: 13px;
+
+  overflow: hidden;
+  &:hover {
+    overflow: visible;
+  }
+  pre {
+    background: white;
+  }
+}
 

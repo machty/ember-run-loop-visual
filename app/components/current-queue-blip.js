@@ -1,4 +1,4 @@
-var QUEUE_WIDTH = 150;
+var QUEUE_WIDTH = 160;
 
 var CurrentQueueBlip = Ember.Component.extend({
   attributeBindings: ['style'],

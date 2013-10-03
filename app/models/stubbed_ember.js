@@ -1,16 +1,13 @@
-
 var slice = [].slice;
 
 var StubbedEmber = Ember.create(Ember);
 
 var FakeRunLoop = Ember.Object.extend({
-  isRunning: false,
-  currentQueue: null,
-  currentQueueIndex: -1,
+  currentQueueIndex: 0,
+  isPlaying: false,
   queues: Ember.run.queues.map(function(queueName) {
     return { name: queueName, actions: [] };
   }),
-  isFlushing: Ember.computed.bool('currentQueue'),
 
   schedule: function(queueName, action, once) {
    var queue = this.queues.findProperty('name', queueName);
@@ -21,29 +18,40 @@ var FakeRunLoop = Ember.Object.extend({
   },
 
   nextStep: function() {
-    if (!this.get('isRunning')) { return; }
+    var currentQueueIndex = this.get('currentQueueIndex'),
+        queues = this.get('queues'),
+        index;
 
-    if (!this.get('isFlushing')) {
-      // Run block code.
-    } else {
-      // Find the first non-empty queue.
-      var index = 0, queues = this.get('queues');
-      for (var len = queues.length; index < len; ++index) {
-        if (queues[index].actions.length) {
-          break;
-        }
-      }
-      if (index === queues.length) { index = -1; }
-
-      if (this.get('currentQueueIndex') !== index) {
-        // Current queue index has changed, consider
-        // this a stand-alone step that we can animate.
+    for (index = 0; index < currentQueueIndex; ++index) {
+      if (queues[index].actions.length) {
+        // Backtrack.
         this.set('currentQueueIndex', index);
         return;
       }
+    }
 
-      var queue = queues[index];
-      queue.actions.shiftObject();
+    var queue = queues[index];
+    if (queue.actions.length === 0) {
+      currentQueueIndex += 1;
+      if (currentQueueIndex === queues.length) {
+        this.set('isPlaying', false);
+        this.set('currentQueueIndex', 0);
+      } else {
+        this.set('currentQueueIndex', currentQueueIndex);
+      }
+      return;
+    }
+
+    var action = queue.actions.shiftObject();
+    action.fn.apply(action.target, action.args);
+  },
+
+  play: function() {
+    this.set('isPlaying', true);
+    this.nextStep();
+
+    if (this.get('isPlaying')) {
+      Ember.run.later(this, 'play', 600);
     }
   }
 });
@@ -51,7 +59,7 @@ var FakeRunLoop = Ember.Object.extend({
 var runLoop = StubbedEmber.fakeRunLoop = FakeRunLoop.create();
 
 function normalize() {
-  var args = [].slice.call(arguments),
+  var args = slice.call(arguments),
       target = args.shift(),
       fn;
 
@@ -85,7 +93,7 @@ StubbedEmber.run.scheduleOnce = function(queueName, args) {
 };
 
 StubbedEmber.run.once = function(queue, args) {
-  StubbedEmber.run.scheduleOnce.apply(null, ['actions'].concat([].slice.call(arguments)));
+  StubbedEmber.run.scheduleOnce.apply(null, ['actions'].concat(slice.call(arguments)));
 };
 
 StubbedEmber.run.next = function() {

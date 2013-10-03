@@ -1,15 +1,18 @@
-
-
-{{textarea value=code}}
+{{textarea value=code id='code'}}
 
 <button {{action 'runCode'}}>Run Code</button>
 
-<h2>Run Loop Queues:</h2>
-
 <div id="queues" class="cf">
-  {{#each}}
-    {{run-loop-queue name=this}}
+  {{#each queues}}
+    {{run-loop-queue queue=this}}
   {{/each}}
 
   {{current-queue-blip queueIndex=currentQueueIndex id="current-queue-blip"}}
+</div>
+
+<h3>Logs:</h3>
+<div id="log">
+  {{#each logs}}
+    <p>{{this}}</p>
+  {{/each}}
 </div>
