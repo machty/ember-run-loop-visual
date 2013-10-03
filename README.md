@@ -1,6 +1,7 @@
 ## Ember Run Loop, Visualized
 
-TODO: README
+See it live
+[here](https://machty.s3.amazonaws.com/ember-run-loop-visual/index.html).
 
 ## Building
 
