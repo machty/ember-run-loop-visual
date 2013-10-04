@@ -7,7 +7,7 @@
 <button {{bind-attr disabled='hasItems'}} {{action 'runCode'}}>Run Code</button>
 
 {{#if hasItems}}
-  There deferred actions that need to be flushed.
+  There are deferred actions that need to be flushed.
 
   {{#if isPlaying}}
     <button {{action 'pause'}}>Pause</button>
