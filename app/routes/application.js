@@ -21,8 +21,18 @@ var ApplicationRoute = Ember.Route.extend({
       };
 
       eval(this.controller.get('code'));
+    },
 
-      runLater(StubbedEmber.fakeRunLoop, 'play', 500);
+    play: function() {
+      StubbedEmber.fakeRunLoop.set('isPlaying', true);
+    },
+
+    pause: function() {
+      StubbedEmber.fakeRunLoop.set('isPlaying', false);
+    },
+
+    step: function() {
+      StubbedEmber.fakeRunLoop.nextStep();
     }
   }
 });

@@ -9,12 +9,15 @@ var FakeRunLoop = Ember.Object.extend({
     return { name: queueName, actions: [] };
   }),
 
+  hasItems: false,
+
   schedule: function(queueName, action, once) {
    var queue = this.queues.findProperty('name', queueName);
 
    // TODO: once
 
    queue.actions.pushObject(action);
+   this.set('hasItems', true);
   },
 
   nextStep: function() {
@@ -36,6 +39,7 @@ var FakeRunLoop = Ember.Object.extend({
       if (currentQueueIndex === queues.length) {
         this.set('isPlaying', false);
         this.set('currentQueueIndex', 0);
+        this.set('hasItems', false);
       } else {
         this.set('currentQueueIndex', currentQueueIndex);
       }
@@ -47,13 +51,12 @@ var FakeRunLoop = Ember.Object.extend({
   },
 
   play: function() {
-    this.set('isPlaying', true);
+    if (!this.get('isPlaying')) { return; }
+
     this.nextStep();
 
-    if (this.get('isPlaying')) {
-      Ember.run.later(this, 'play', 600);
-    }
-  }
+    Ember.run.later(this, 'play', 600);
+  }.observes('isPlaying')
 });
 
 var runLoop = StubbedEmber.fakeRunLoop = FakeRunLoop.create();
@@ -79,9 +82,7 @@ function normalize() {
 }
 
 StubbedEmber.run = function(fn) {
-  //runLoop.begin();
   fn();
-  //runLoop.end();
 };
 
 StubbedEmber.run.schedule = function(queueName) {

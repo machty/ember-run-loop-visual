@@ -1,13 +1,30 @@
-{{textarea value=code id='code'}}
+<p>
+  <a href="https://github.com/machty/ember-run-loop-visual" target="_blank">Source Code on GitHub</a>
+</p>
 
-<button {{action 'runCode'}}>Run Code</button>
+{{textarea value=code id='code' disabled=hasItems}}
+
+<button {{bind-attr disabled='hasItems'}} {{action 'runCode'}}>Run Code</button>
+
+{{#if hasItems}}
+  There deferred actions that need to be flushed.
+
+  {{#if isPlaying}}
+    <button {{action 'pause'}}>Pause</button>
+  {{else}}
+    <button {{action 'play'}}>Play</button>
+    <button {{action 'step'}}>Step</button>
+  {{/if}}
+{{/if}}
 
 <div id="queues" class="cf">
   {{#each queues}}
     {{run-loop-queue queue=this}}
   {{/each}}
 
-  {{current-queue-blip queueIndex=currentQueueIndex id="current-queue-blip"}}
+  {{#if hasItems}}
+    {{current-queue-blip queueIndex=currentQueueIndex id="current-queue-blip"}}
+  {{/if}}
 </div>
 
 <h3>Logs:</h3>

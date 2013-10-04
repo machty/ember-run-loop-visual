@@ -118,9 +118,18 @@ textarea#code {
   overflow: hidden;
   &:hover {
     overflow: visible;
+    pre {
+      box-shadow: 0 0 3px black;
+      -webkit-box-shadow: 0 0 3px black;
+      -moz-box-shadow: 0 0 3px black;
+    }
   }
   pre {
     background: white;
+    float: left;
+    display: block;
+    position: relative;
+
   }
 }
 
