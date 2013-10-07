@@ -12,12 +12,18 @@ var FakeRunLoop = Ember.Object.extend({
   hasItems: false,
 
   schedule: function(queueName, action, once) {
-   var queue = this.queues.findProperty('name', queueName);
+    var queue = this.queues.findProperty('name', queueName);
 
-   // TODO: once
+    if (once){
+      var count = queue.actions.reduce(function(sum, record) {
+        return (record.fn.name===action.fn.name) ? sum+1 : 0;
+      }, 0);
 
-   queue.actions.pushObject(action);
-   this.set('hasItems', true);
+      if (count>0) { return; }
+    }
+
+    queue.actions.pushObject(action);
+    this.set('hasItems', true);
   },
 
   nextStep: function() {
